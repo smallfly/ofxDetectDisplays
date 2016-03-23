@@ -59,7 +59,7 @@ BOOL CALLBACK monitorEnumProc(HMONITOR hMonitor, HDC hdcMonitor, LPRECT lprcMoni
 
 //--------------------------------------------------------------
 // Convert a wide Unicode string to an UTF8 string
-string utf8_encode(const std::wstring &wstr)
+string ofxDetectDisplays::utf8_encode(const std::wstring &wstr)
 {
     int size_needed = WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), NULL, 0, NULL, NULL);
     std::string strTo( size_needed, 0 );

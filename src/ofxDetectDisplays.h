@@ -40,6 +40,8 @@ public:
 
 private:
     vector<DisplayInfo*> displays;
+
+	string utf8_encode(const std::wstring &wstr);
 };
 
 //--------------------------------------------------------------
