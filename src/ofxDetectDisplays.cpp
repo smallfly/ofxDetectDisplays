@@ -241,7 +241,7 @@ const vector<DisplayInfo*> & ofxDetectDisplays::getDisplays()
 }
 
 //--------------------------------------------------------------
-bool ofxDetectDisplays::placeWindowOnDisplay(int displayID)
+bool ofxDetectDisplays::placeWindowOnDisplay(int displayID, bool borderless)
 {
 
 #if defined(TARGET_OSX)
@@ -252,8 +252,18 @@ bool ofxDetectDisplays::placeWindowOnDisplay(int displayID)
 #elif defined(TARGET_WIN32)
 	HWND hwnd = ofGetWin32Window();
  
-	DWORD EX_STYLE = WS_EX_OVERLAPPEDWINDOW;
-	DWORD STYLE = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
+	DWORD EX_STYLE;
+	DWORD STYLE;
+
+	if (borderless) {
+		EX_STYLE = WS_EX_WINDOWEDGE;
+		STYLE = WS_OVERLAPPED;
+	}
+	else {
+		EX_STYLE = WS_EX_OVERLAPPEDWINDOW;
+		STYLE = WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_CLIPCHILDREN | WS_CLIPSIBLINGS;
+	}
+	
 	SetWindowLong(hwnd, GWL_EXSTYLE, EX_STYLE);
 	SetWindowLong(hwnd, GWL_STYLE, STYLE);
 	SetWindowPos(hwnd, HWND_TOPMOST, displays[displayID]->left, displays[displayID]->top, displays[displayID]->width, displays[displayID]->height, SWP_SHOWWINDOW);

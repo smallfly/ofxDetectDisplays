@@ -33,7 +33,7 @@ public:
 
     const vector<DisplayInfo*> & getDisplays();
 
-    bool placeWindowOnDisplay(int displayID);
+    bool placeWindowOnDisplay(int displayID, bool borderless = false);
     bool fullscreenWindowOnDisplay(int displayID);
     
     ofEvent<void> displayConfigurationChanged;
